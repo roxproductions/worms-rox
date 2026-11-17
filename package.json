@@ -1,0 +1,24 @@
+{
+  "name": "worms-rox",
+  "version": "1.0.0",
+  "description": "Worms Rox! — a browser multiplayer Worms-style artillery game in a single HTML file",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:novoices": "NO_VOICES=1 node scripts/build.mjs",
+    "serve": "node scripts/serve.mjs",
+    "test": "node tests/smoke.mjs",
+    "voices:lines": "node scripts/extract-lines.mjs",
+    "voices:gen": "python3 voices/gen_voices.py",
+    "voices:pack": "python3 voices/pack_voices.py"
+  },
+  "dependencies": {
+    "peerjs": "1.5.4",
+    "three": "0.128.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.48.0"
+  }
+}

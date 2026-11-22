@@ -240,7 +240,7 @@ function step(){
  const T=g.teams[g.ti],aw=T&&T.w[T.cur];
  if(BOT)botTick();
  if(act()){
-  if(aw.rope){if(keys.ArrowUp)ropeReel(aw,-2.2);if(keys.ArrowDown)ropeReel(aw,2.2);const dr=(keys.ArrowRight?1:0)-(keys.ArrowLeft?1:0);if(dr){const ax=aw.x-aw.rope[0],ay=aw.y-aw.rope[1],dd=Math.hypot(ax,ay)||1,tx=-ay/dd,ty=ax/dd,sg=tx*dr>0?1:-1,sp=Math.hypot(aw.vx,aw.vy),kk=sp>9?Math.max(0,1-(sp-9)/2):1;aw.vx+=tx*sg*.095*kk;aw.vy+=ty*sg*.095*kk}}
+  if(aw.rope){if(keys.ArrowUp)ropeReel(aw,-3);if(keys.ArrowDown)ropeReel(aw,3);const dr=(keys.ArrowRight?1:0)-(keys.ArrowLeft?1:0);if(dr){const ax=aw.x-aw.rope[0],ay=aw.y-aw.rope[1],dd=Math.hypot(ax,ay)||1,tx=-ay/dd,ty=ax/dd,sg=tx*dr>0?1:-1,sp=Math.hypot(aw.vx,aw.vy),kk=sp>9?Math.max(0,1-(sp-9)/2):1;aw.vx+=tx*sg*.095*kk;aw.vy+=ty*sg*.095*kk}}
   else{if(keys.ArrowUp)g.aim=Math.min(85,g.aim+1);if(keys.ArrowDown)g.aim=Math.max(-60,g.aim-1)}
   const on=solid(aw.x,aw.y+7);
   if(on&&(keys.ArrowLeft||keys.ArrowRight)&&!g.charging&&!aw.rope){aw.f=keys.ArrowLeft?-1:1;aw.vx=aw.f*1.1*(1+(aw.sa||0)*aw.f*.5)}
@@ -434,7 +434,7 @@ function ropeFx(c,w){
  for(const[x0,y0,x1,y1,sl]of pts){const mx=(x0+x1)/2,my=(y0+y1)/2;c.strokeStyle='rgba(20,14,8,.55)';c.lineWidth=3;c.beginPath();c.moveTo(x0,y0+1);c.quadraticCurveTo(mx,my+1,x1,y1+1);c.stroke();c.strokeStyle='#c9b58a';c.lineWidth=2;c.beginPath();c.moveTo(x0,y0);c.quadraticCurveTo(mx,my,x1,y1);c.stroke();c.strokeStyle='#7a6444';c.lineWidth=2;c.setLineDash([2,3]);c.beginPath();c.moveTo(x0,y0);c.quadraticCurveTo(mx,my,x1,y1);c.stroke();c.setLineDash([])}
  const hk=w.hook?[w.hook.x,w.hook.y,Math.atan2(w.hook.dy,w.hook.dx)]:w.rope?[w.rope[0],w.rope[1],Math.atan2(w.rope[1]-w.y,w.rope[0]-w.x)]:null;
  if(hk){c.save();c.translate(hk[0],hk[1]);c.rotate(hk[2]);c.fillStyle='#8c94a6';c.strokeStyle='#454b5c';c.lineWidth=1;c.beginPath();c.moveTo(-3,0);c.lineTo(2,-4);c.lineTo(6,-2);c.lineTo(3,0);c.lineTo(6,2);c.lineTo(2,4);c.closePath();c.fill();c.stroke();c.restore()}}
-function ropeReel(w,dl){const old=w.rl,nl=Math.max(14,Math.min(320,old+dl));if(nl===old||!w.rope)return;w.rl=nl;if(dl<0){const ax=w.x-w.rope[0],ay=w.y-w.rope[1],d=Math.hypot(ax,ay)||1,nx=ax/d,ny=ay/d,vr=w.vx*nx+w.vy*ny,tx=w.vx-vr*nx,ty=w.vy-vr*ny,k=Math.min(1.06,old/nl);let vx=vr*nx+tx*k,vy=vr*ny+ty*k;const sp=Math.hypot(vx,vy);if(sp>11){vx*=11/sp;vy*=11/sp}w.vx=vx;w.vy=vy}}
+function ropeReel(w,dl){const old=w.rl,nl=Math.max(14,Math.min(320,old+dl));if(nl===old||!w.rope)return;w.rl=nl;if(dl>0){const ax=w.x-w.rope[0],ay=w.y-w.rope[1],d=Math.hypot(ax,ay)||1;if(d>=old-3){const nd=Math.min(nl,d+dl+1),px=w.rope[0]+ax/d*nd,py=w.rope[1]+ay/d*nd;if(!solid(px,py-4)&&!solid(px,py+1)){w.x=px;w.y=py}}}if(dl<0){const ax=w.x-w.rope[0],ay=w.y-w.rope[1],d=Math.hypot(ax,ay)||1,nx=ax/d,ny=ay/d,vr=w.vx*nx+w.vy*ny,tx=w.vx-vr*nx,ty=w.vy-vr*ny,k=Math.min(1.06,old/nl);let vx=vr*nx+tx*k,vy=vr*ny+ty*k;const sp=Math.hypot(vx,vy);if(sp>11){vx*=11/sp;vy*=11/sp}w.vx=vx;w.vy=vy}}
 function ropeToggle(){const T=G.teams[G.ti],w=T.w[T.cur];if(w.rope||w.hook){w.rope=null;w.hook=null;w.rs=[];G.lk=0;w.jp=Math.max(w.jp|0,1);snd('rope');return}
  const r=G.aim*Math.PI/180,dx=w.f*Math.cos(r),dy=-Math.sin(r);w.hook={x:w.x+dx*6,y:w.y-2+dy*6,dx,dy,l:0};w.rs=[];snd('rope')}
 let AC=null,MG=null,WG=null,RG=null,mute=false,NB=null;const VOL={fx:1,wind:.2,leaf:.2,bird:.8,voice:1,music:.3},BUS={};

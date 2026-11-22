@@ -185,7 +185,7 @@ body.playing .hero{display:none}body.playing .mini{display:flex}
      (PeerJS id "wormsrm-<room>"), others connect to it. If the hub leaves, someone takes over.
    - Optional: ?relay=wss://host:8787 uses the bundled WebSocket relay instead.
    - Optional: ?peerhost=&peerport=&peerpath=&peersecure=0|1 points PeerJS at your own PeerServer. */
-window.WORMS_RELAY=window.WORMS_RELAY||"wss://worms-relay.roxgamez.workers.dev"; // set at build time (see README)
+window.WORMS_RELAY=window.WORMS_RELAY||''; // set at build time (see README)
 (function(){
  if(window.claude)return;
  var qs=new URLSearchParams(location.search);

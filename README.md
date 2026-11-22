@@ -1,13 +1,27 @@
 # Worms Rox!
 
+<p align="center"><img src="docs/social-preview.png" alt="Worms Rox!" width="640"></p>
+
+<h2 align="center">▶ <a href="https://roxproductions.se/games/worms/">Play now → roxproductions.se/games/worms</a></h2>
+<p align="center">Free · multiplayer in your browser · no install · up to 4 players or vs a bot<br>
+<a href="https://roxproductions.se/games/worms/alerts.html">🔔 Get a phone alert when someone is playing</a> ·
+<a href="../../releases">Download</a> ·
+<a href="../../discussions">Discussions</a> ·
+<a href="CONTRIBUTING.md">Contribute</a></p>
+
+![Mini-games: every team plays at once](docs/minigames.gif)
+
 A turn-based artillery game for the browser, in the spirit of Worms: up to four players (or you vs a bot) blow up
 procedurally generated landscapes with bazookas, grenades, dynamite, flamethrowers, Super Sheep and Kitty Cannons,
-swing around on a ninja rope, and fight over crates that unlock mini-games.
+swing around on a ninja rope, and fight over crates that unlock mini-games where **every team plays at once**.
 
 The whole game is **one HTML file** (`index.html`): no server, no install, no build step needed to play.
 
+| Worms | Mortal Worm Combat | Smash Brawl | FPS arena |
+| --- | --- | --- | --- |
+| ![Gameplay](docs/gameplay.png) | ![Fighters](docs/fighters.jpg) | ![Smash](docs/smash.jpg) | ![FPS](docs/fps.jpg) |
+
 ![Start screen](docs/start-screen.png)
-![Gameplay](docs/gameplay.png)
 
 ## Play
 
@@ -33,7 +47,7 @@ The whole game is **one HTML file** (`index.html`): no server, no install, no bu
 
 - Procedural maps: landforms, caves, islands, bridges, castles, themes, three map sizes, open-sea edges, seed phrases (share a seed to replay a map).
 - Rope physics, wind, water, crates (weapons, health, mini-games), sudden-death duel.
-- Crate mini-games: Tetris race, Rock-Paper-Scissors, Mortal Worm Combat, Smash Brawl, FPS arena (WebGL).
+- Crate mini-games, all teams playing at once (the loser's worm dies): Tetris race, Rock-Paper-Scissors, Mortal Worm Combat, Smash Brawl, FPS arena (WebGL, Unreal Tournament style).
 - Bot opponent with a 1–10 skill slider.
 - **Voices:** pre-rendered Southern-American voice clips (tipsy man and woman) generated with Qwen3-TTS; falls back to browser speech synthesis if the voice pack is missing.
 - **Radio:** switch between generated jazz and online radio streams (SomaFM, Radio Paradise) from the top bar.

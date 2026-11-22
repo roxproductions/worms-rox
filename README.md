@@ -43,6 +43,8 @@ The whole game is **one HTML file** (`index.html`): no server, no install, no bu
 | `C` / `F` | Camera follow / fullscreen (wheel zooms, drag pans) |
 | `[` `]` or `,` `.` | Previous / next radio station |
 
+**On a phone or tablet** an on-screen pad appears automatically (🎮 button top-right hides it, ⛶ goes fullscreen; landscape or fullscreen is best). It sends the same keys as above, with a virtual stick and drag-to-look for the first-person mode.
+
 ## Features
 
 - Procedural maps: landforms, caves, islands, bridges, castles, themes, three map sizes, open-sea edges, seed phrases (share a seed to replay a map).

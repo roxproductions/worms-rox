@@ -48,6 +48,7 @@ The page picks a transport automatically:
 3. **WebSocket relay** (most reliable): a tiny relay that every player connects to over `wss://`. Two options are included:
    - `relay/cloudflare/`: free Cloudflare Worker + Durable Object. `cd relay/cloudflare && npx wrangler login && npx wrangler deploy`
    - `relay/node/`: `npm install && node relay-server.js` (port 8787; put it behind TLS).
+   - Play alerts: the relay can push a phone notification (via ntfy) when someone starts playing; see `docs/ALERTS.md` and `src/alerts.html`.
 
 Use a relay without rebuilding by opening `index.html?relay=wss://your-relay.example`, or bake it in at build time (below).
 

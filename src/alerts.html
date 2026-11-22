@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Game alerts</title>
+<style>
+:root{--bg:#14121f;--card:#1f1b33;--fg:#e9ecff;--mut:#a9a4cc;--ac:#ff7ac6;--ac2:#5ad1ff;--ok:#7be38b}
+@media (prefers-color-scheme:light){:root{--bg:#f4f1ff;--card:#fff;--fg:#1c1840;--mut:#5c5890}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,sans-serif;padding:16px}
+main{max-width:520px;margin:0 auto}h1{font-size:26px;margin:12px 0 4px}p{color:var(--mut);margin:0 0 16px}
+.card{background:var(--card);border-radius:18px;padding:16px;margin:12px 0;box-shadow:0 8px 30px rgba(0,0,0,.18)}
+label.g{display:flex;gap:12px;align-items:center;padding:12px;border-radius:12px;border:2px solid transparent;background:rgba(127,127,200,.1);cursor:pointer;margin:8px 0}
+label.g:has(input:checked){border-color:var(--ac)}input[type=checkbox]{width:22px;height:22px;accent-color:var(--ac)}
+label.g b{display:block}label.g span{color:var(--mut);font-size:14px}
+button,a.b{display:block;width:100%;text-align:center;padding:14px;border-radius:999px;border:0;font:700 16px system-ui;background:linear-gradient(90deg,var(--ac),#9a6bff);color:#fff;text-decoration:none;margin:8px 0;cursor:pointer}
+button.s,a.s{background:rgba(127,127,200,.2);color:var(--fg)}ol{padding-left:20px;margin:8px 0}li{margin:6px 0}small{color:var(--mut)}
+#msg{color:var(--ok);min-height:22px;font-weight:600}code{background:rgba(127,127,200,.2);padding:1px 6px;border-radius:6px;word-break:break-all}
+</style></head><body><main>
+<h1>🔔 Game alerts</h1>
+<p>Get a push notification on your phone when someone starts playing, so you can jump in.</p>
+<form class="card" id="f" onsubmit="return false">
+ <label class="g"><input type="checkbox" id="w" checked><div><b>Worms Rox!</b><span>Alert when a game lobby opens</span></div></label>
+ <label class="g"><input type="checkbox" id="g" checked><div><b>RoxTown Carnage</b><span>Alert when someone joins the city</span></div></label>
+ <button id="go">Sign me up</button>
+ <button class="s" id="test">Send a test alert</button>
+ <div id="msg"></div>
+</form>
+<div class="card" id="how" hidden>
+ <b>Two quick steps</b>
+ <ol><li>Install the free <b>ntfy</b> app (<a href="https://apps.apple.com/app/ntfy/id1625396347" style="color:var(--ac2)">iPhone</a> / <a href="https://play.google.com/store/apps/details?id=io.heckel.ntfy" style="color:var(--ac2)">Android</a> / <a href="https://f-droid.org/packages/io.heckel.ntfy/" style="color:var(--ac2)">F-Droid</a>).</li>
+ <li>Tap the button(s) below to subscribe:</li></ol>
+ <div id="links"></div>
+ <small>No account or email needed. You can unsubscribe in the app at any time. You get at most one alert per game every 15 minutes.</small>
+</div>
+</main>
+<script>
+var T={w:'worms-rox-alerts-91d49cdc',g:'roxtown-alerts-91d49cdc'},N={w:'Worms Rox!',g:'RoxTown Carnage'};
+var q=new URLSearchParams(location.search);if(q.get('w'))T.w=q.get('w');if(q.get('g'))T.g=q.get('g');
+function sel(){return['w','g'].filter(function(k){return document.getElementById(k).checked})}
+document.getElementById('go').onclick=function(){var s=sel(),m=document.getElementById('msg');if(!s.length){m.textContent='Pick at least one game.';m.style.color='#ff6b6b';return}
+ m.style.color='';m.textContent='';document.getElementById('how').hidden=false;
+ document.getElementById('links').innerHTML=s.map(function(k){return '<a class="b" href="ntfy://ntfy.sh/'+T[k]+'">Subscribe: '+N[k]+'</a><a class="b s" target="_blank" rel="noopener" href="https://ntfy.sh/'+T[k]+'">Or use the web version</a>'}).join('');
+ document.getElementById('how').scrollIntoView({behavior:'smooth'})};
+document.getElementById('test').onclick=function(){var s=sel(),m=document.getElementById('msg');if(!s.length){m.textContent='Pick at least one game.';m.style.color='#ff6b6b';return}m.style.color='';
+ Promise.all(s.map(function(k){return fetch('https://ntfy.sh/'+T[k],{method:'POST',body:'This is a test alert. You are signed up!',headers:{Title:N[k]+' – test','Tags':'bell'}})})).then(function(){m.textContent='Test sent. Check your phone.'}).catch(function(){m.textContent='Could not send the test.';m.style.color='#ff6b6b'})};
+</script></body></html>

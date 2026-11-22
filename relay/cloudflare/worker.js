@@ -1,7 +1,7 @@
 // Worms Rox! relay for Cloudflare Workers (free plan). One Durable Object fans messages out per room.
 // Push alerts go out through ntfy.sh (free, iOS + Android apps). Players subscribe on alerts.html.
-// Change the topics with Worker variables NTFY_TOPIC_WORMS / NTFY_TOPIC_GTA (they act as the "password" to subscribe).
-const TOPICS = { worms: 'worms-rox-alerts-91d49cdc', gta: 'roxtown-alerts-91d49cdc' };
+// Change the topics with Worker variables NTFY_TOPIC_WORMS / NTFY_TOPIC_GTA (the signup page shows them, so they are not a secret).
+const TOPICS = { worms: 'worms-rox', gta: 'roxtown-carnage' };
 const TITLES = { worms: 'Worms Rox!', gta: 'RoxTown Carnage' };
 const COOLDOWN = 15 * 60 * 1000; // at most one alert per game every 15 minutes
 export class Hub {

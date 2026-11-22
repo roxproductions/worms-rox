@@ -32,7 +32,7 @@ button.s,a.s{background:rgba(127,127,200,.2);color:var(--fg)}ol{padding-left:20p
 </div>
 </main>
 <script>
-var T={w:'worms-rox-alerts-91d49cdc',g:'roxtown-alerts-91d49cdc'},N={w:'Worms Rox!',g:'RoxTown Carnage'};
+var T={w:'worms-rox',g:'roxtown-carnage'},N={w:'Worms Rox!',g:'RoxTown Carnage'};
 var q=new URLSearchParams(location.search);if(q.get('w'))T.w=q.get('w');if(q.get('g'))T.g=q.get('g');
 function sel(){return['w','g'].filter(function(k){return document.getElementById(k).checked})}
 document.getElementById('go').onclick=function(){var s=sel(),m=document.getElementById('msg');if(!s.length){m.textContent='Pick at least one game.';m.style.color='#ff6b6b';return}

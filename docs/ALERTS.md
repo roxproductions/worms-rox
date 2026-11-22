@@ -4,7 +4,7 @@ Players sign up on `alerts.html` (host it next to `index.html`, e.g. roxproducti
 
 ## How it works
 - The Cloudflare relay sends a push to ntfy when the first player joins a room (max one alert per game every 15 minutes).
-- Topics (the "secret" players subscribe to): `worms-rox-alerts-91d49cdc` and `roxtown-alerts-91d49cdc`. Change them with the Worker variables `NTFY_TOPIC_WORMS` / `NTFY_TOPIC_GTA` and edit the two names at the top of the script in `alerts.html` to match (or open `alerts.html?w=TOPIC&g=TOPIC`).
+- Topics (what players subscribe to, shown on the signup page): `worms-rox` and `roxtown-carnage`. Change them with the Worker variables `NTFY_TOPIC_WORMS` / `NTFY_TOPIC_GTA` and edit the two names at the top of the script in `alerts.html` to match (or open `alerts.html?w=TOPIC&g=TOPIC`).
 - Redeploy the relay after updating: `cd relay/cloudflare && npx wrangler deploy`.
 
 ## RoxTown Carnage (GTA) hook

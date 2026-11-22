@@ -88,11 +88,10 @@ body.tcdev.tcon #tc.on{display:block}
 #tc .stk{pointer-events:auto;width:calc(var(--b)*2.3);height:calc(var(--b)*2.3);border-radius:50%;background:rgba(20,26,40,.35);border:2px solid rgba(255,255,255,.5);position:relative}
 #tc .stk i{position:absolute;left:50%;top:50%;width:calc(var(--b)*.95);height:calc(var(--b)*.95);margin:calc(var(--b)*-.475);border-radius:50%;background:rgba(255,255,255,.55);border:2px solid #fff}
 #tl{position:absolute;right:0;top:0;bottom:0;width:55%;pointer-events:auto}
-@media (orientation:portrait){
- body.tcdev.tcon #cw{margin-bottom:172px}
- #cw:not(:fullscreen):not(.pfs) #tc{inset:auto 0 auto 0;top:100%;height:165px;--b:clamp(44px,13vw,64px)}
- #cw:not(:fullscreen):not(.pfs) #tl{top:auto;bottom:100%;left:0;right:0;width:auto;height:auto;aspect-ratio:2/1}
-}
+body.tcbelow.tcon #cw{margin-bottom:172px}
+body.tcbelow #tc{inset:auto 0 auto 0;top:100%;height:165px;--b:clamp(44px,13vw,64px)}
+body.tcbelow #tl{top:auto;bottom:100%;left:0;right:0;width:auto;height:auto;aspect-ratio:2/1}
+
 </style></head><body><main>
 <header class="hero" id="hero"><svg class="scene" viewBox="0 0 1200 460" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 <defs>
@@ -2097,7 +2096,7 @@ function look(par){const z=document.createElement('div');z.id='tl';par.appendChi
  ['pointerup','pointercancel','lostpointercapture'].forEach(t=>z.addEventListener(t,()=>{pid=-1}))}
 function build(m){tcRel();tc.innerHTML='';tc.classList.toggle('on',!!m);if(!m)return;const M=MODES[m];if(m==='fps')look(tc);
  for(const side of['L','R']){const S=M[side],g=document.createElement('div');g.id='tc'+side.toLowerCase();if(S.stick){stick(g)}else if(S.c.length){g.style.gridTemplateColumns=`repeat(${S.n},var(--b))`;S.c.forEach(d=>mk(d,g))}tc.appendChild(g)}}
-setInterval(()=>{const m=mode();if(m!==cur){cur=m;build(m)}},200);
+setInterval(()=>{const d=document,fs=d.fullscreenElement||d.webkitFullscreenElement||cw.classList.contains('pfs'),bl=!fs&&innerHeight>innerWidth;if(body.classList.contains('tcbelow')!==bl)body.classList.toggle('tcbelow',bl);const m=mode();if(m!==cur){cur=m;build(m)}},200);
 document.addEventListener('visibilitychange',tcRel);addEventListener('blur',tcRel);
 window.tcDbg={mode:()=>cur,held:()=>[...held]};
 })();

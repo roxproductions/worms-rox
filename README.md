@@ -113,3 +113,10 @@ npm run build
 - Voice clips were generated with Qwen3-TTS (Apache-2.0).
 - Radio streams are played directly from [SomaFM](https://somafm.com) and [Radio Paradise](https://radioparadise.com); nothing is redistributed. Please support them.
 - "Worms" is a trademark of its owners. This is an unaffiliated fan project and contains no assets from the original games.
+
+## Worm Island (first-person mode)
+
+`island/` holds **Worm Island**, a first-person worm deathmatch (three.js r128, bat / uzi / shotgun, ninja rope, goats, jetskis, supply drops and a rare Holy Hand Grenade). It is embedded into the game at build time and opens from the "FPS test" link, from the Esc menu, or directly with `?island=<room code>` (players in the same room share one arena).
+
+- Source is in `island/src`; rebuild its single file with `python3 island/build.py` (output: `island/dist/index.html`, which is committed so `npm run build` needs no Python).
+- `npm run build` base64-embeds `island/dist/index.html` into `index.html` (the `%%ISLAND%%` placeholder in `src/worms.html`).

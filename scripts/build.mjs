@@ -1,4 +1,4 @@
-// Builds the single-file game: src/worms.html + PeerJS + three.js + transport + optional voice pack -> index.html
+// Builds the single-file game: src/worms.html + PeerJS + three.js + transport + optional voice pack + Worm Island (island/dist) -> index.html
 // Relay (optional): WORMS_RELAY=wss://your-worker.workers.dev npm run build   or put {"relay":"wss://..."} in config.local.json
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 const root = new URL('..', import.meta.url);
@@ -9,6 +9,8 @@ const noVoices = process.env.NO_VOICES === '1';
 const tag = '<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>';
 let html = rd('src/worms.html');
 if (html.split(tag).length !== 2) throw new Error('three.js script tag not found exactly once in src/worms.html');
+const islandUrl = new URL('island/dist/index.html', root), hasIsland = existsSync(islandUrl);
+if (hasIsland) { if (html.split('%%ISLAND%%').length !== 2) throw new Error('%%ISLAND%% placeholder not found exactly once in src/worms.html'); html = html.replace('%%ISLAND%%', () => readFileSync(islandUrl).toString('base64')); }
 let transport = rd('src/transport.js');
 if (relay) {
   if (!/^wss?:\/\//.test(relay)) throw new Error('relay must start with ws:// or wss://');
@@ -20,4 +22,4 @@ for (const [n, s] of Object.entries({ peer, three, transport, voices })) if (s.i
 const inline = (voices ? `<script>${voices}</script>\n` : '') + `<script>${peer}\n</script>\n<script>\n${transport}</script>\n<script>${three}\n</script>`;
 html = html.replace(tag, () => inline);
 writeFileSync(new URL('index.html', root), html);
-console.log(`index.html  ${(html.length / 1024 / 1024).toFixed(2)} MB  relay=${relay || '(none: PeerJS/tabs only)'}  voices=${voices ? 'yes' : 'no'}`);
+console.log(`index.html  ${(html.length / 1024 / 1024).toFixed(2)} MB  relay=${relay || '(none: PeerJS/tabs only)'}  voices=${voices ? 'yes' : 'no'}  island=${hasIsland ? 'yes' : 'no'}`);

@@ -49,7 +49,7 @@ window.WORMS_RELAY=window.WORMS_RELAY||''; // set at build time (see README)
   }
   function connect(){
    if(dead)return;ws=new WebSocket(relay);
-   ws.onopen=function(){ws.send(JSON.stringify({k:'join',room:name}));q.splice(0).forEach(function(s){ws.send(s)});hi()};
+   ws.onopen=function(){var nmEl=document.getElementById('nm');ws.send(JSON.stringify({k:'join',room:name,name:nmEl?String(nmEl.value).slice(0,24):'',testntfy:/[?&]testntfy\b/.test(location.search)}));q.splice(0).forEach(function(s){ws.send(s)});hi()};
    ws.onmessage=function(e){try{recv(JSON.parse(e.data))}catch(x){}};
    ws.onclose=function(){if(!dead)setTimeout(connect,1500)};
   }
@@ -112,6 +112,7 @@ window.WORMS_RELAY=window.WORMS_RELAY||''; // set at build time (see README)
    emit:function(t,d){raw({k:'m',p:me,t:t,d:d})},
    presence:function(p){pres=Object.assign({},pres,p);peers[me].presence=pres;hi();notify()},
    peers:list,
+   pub:function(i){if(relay)raw({k:'pub',i:i})},
    onPeers:function(f){cbs.push(f);f({peers:list(),left:[]})},
    leave:function(){dead=true;raw({k:'bye',p:me});clearTimeout(pTimer);killPeer();if(ws)ws.close();if(bc)bc.close()}
   };
